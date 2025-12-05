@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest Hunter - Click the Animals!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <header class="game-header">
+            <h1>🏹 <strong>Forest Hunter</strong></h1>
+            <p>Click the animals before time runs out!</p>
+        </header>
+
+        <main class="game-main">
+            <!-- Stats Panel -->
+            <div class="stats-panel">
+                <div class="stat">
+                    <span class="stat-label">Score:</span>
+                    <span class="stat-value" id="score">0</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Time:</span>
+                    <span class="stat-value" id="timer">30</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Difficulty:</span>
+                    <span class="stat-value" id="difficulty">Easy</span>
+                </div>
+            </div>
+
+            <!-- Game Area -->
+            <div class="game-area" id="gameArea">
+                <div class="forest-bg"></div>
+                <div class="forest-fog"></div>
+                <div class="target" id="target"></div>
+            </div>
+
+            <!-- Game Over Screen -->
+            <div class="game-over" id="gameOver">
+                <h2 id="finalScore">HUNT COMPLETE!</h2>
+                <p>Your final score: <span id="finalScoreValue">0</span></p>
+                <button id="playAgain">Hunt Again 🏹</button>
+            </div>
+        </main>
+
+        <!-- Controls -->
+        <footer class="game-controls">
+            <select id="difficultySelect">
+                <option value="easy">Easy (30s)</option>
+                <option value="medium">Medium (20s)</option>
+                <option value="hard">Hard (10s)</option>
+            </select>
+            <button id="startBtn">Start Hunt 🏹</button>
+            <button id="resetBtn">Reset</button>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
