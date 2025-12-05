@@ -1,0 +1,247 @@
+/* Forest Hunter Theme - CSS Variables */
+:root {
+    --primary-color: #2d5016;
+    --secondary-color: #4a7c2a;
+    --accent-color: #d4a017;
+    --background-gradient: 
+        linear-gradient(135deg, #1a3c0f 0%, #2d5016 25%, #4a7c2a 50%, #1e4a1e 100%);
+    --target-glow: #ff6b35;
+}
+
+/* Reset & Base */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Arial', sans-serif;
+    background: var(--background-gradient);
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: crosshair;
+}
+
+/* Game Container */
+.game-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.game-header {
+    text-align: center;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    margin-bottom: 20px;
+}
+.game-header h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #d4a017, #ff6b35);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Stats Panel */
+.stats-panel {
+    display: flex;
+    justify-content: space-around;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+.stat {
+    text-align: center;
+    color: white;
+}
+.stat-label { font-size: 0.9rem; opacity: 0.8; display: block; }
+.stat-value { 
+    font-size: 2rem; 
+    font-weight: bold; 
+    color: var(--accent-color);
+}
+
+/* Game Area - Forest Background */
+.game-area {
+    flex: 1;
+    position: relative;
+    min-height: 400px;
+    max-height: 70vh;
+    border: 4px solid rgba(255,255,255,0.2);
+    border-radius: 25px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #2d5016 0%, #1a3c0f 100%);
+    margin-bottom: 20px;
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+}
+
+/* Animated Forest Background */
+.forest-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(34,139,34,0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0,100,0,0.4) 0%, transparent 50%),
+        linear-gradient(90deg, transparent 0%, rgba(139,69,19,0.2) 50%, transparent 100%);
+    animation: forestWind 20s ease-in-out infinite;
+    z-index: 1;
+}
+
+@keyframes forestWind {
+    0%, 100% { transform: translateX(0) translateY(0); }
+    33% { transform: translateX(-2%) translateY(-1%); }
+    66% { transform: translateX(1%) translateY(2%); }
+}
+
+/* Forest Fog */
+.forest-fog {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(255,255,255,0.1) 50%, 
+        transparent 100%);
+    animation: fogMove 15s linear infinite;
+    z-index: 2;
+}
+
+@keyframes fogMove {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(0); }
+}
+
+/* Hunting Target - Animals */
+.target {
+    position: absolute;
+    font-size: clamp(3rem, 8vw, 6rem);
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: crosshair;
+    z-index: 10;
+    animation: huntBounce 2.5s ease-in-out infinite;
+    box-shadow: 
+        0 0 30px var(--target-glow),
+        inset 0 0 20px rgba(255,255,255,0.3);
+    background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.6) 100%);
+    transition: all 0.2s ease;
+}
+
+.target:hover {
+    transform: scale(1.1) !important;
+    box-shadow: 0 0 50px var(--target-glow), 0 0 70px rgba(255,107,53,0.5);
+}
+
+@keyframes huntBounce {
+    0%, 100% { 
+        transform: scale(1) rotate(0deg); 
+        filter: drop-shadow(0 0 10px var(--target-glow));
+    }
+    25% { 
+        transform: scale(1.1) rotate(5deg); 
+        filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+    }
+    75% { 
+        transform: scale(0.95) rotate(-3deg);
+        filter: drop-shadow(0 -5px 15px rgba(212,160,23,0.6));
+    }
+}
+
+/* Hit Effect */
+.target.hit {
+    animation: hitEffect 0.3s ease-out;
+}
+
+@keyframes hitEffect {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.4); filter: brightness(2); }
+    100% { transform: scale(0); opacity: 0; }
+}
+
+/* Game Over */
+.game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.9);
+    color: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    z-index: 20;
+    display: none;
+}
+.game-over h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: var(--accent-color);
+}
+
+/* Controls */
+.game-controls {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 20px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+}
+
+select, button {
+    padding: 15px 25px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+select {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    min-width: 150px;
+}
+
+button {
+    background: linear-gradient(45deg, var(--accent-color), #ff6b35);
+    color: white;
+    box-shadow: 0 5px 15px rgba(212,160,23,0.4);
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212,160,23,0.6);
+}
+
+button:active { transform: translateY(0); }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .stats-panel { flex-direction: column; gap: 15px; }
+    .game-controls { flex-direction: column; align-items: center; }
+    select, button { width: 100%; max-width: 300px; }
+}
+
+@media (max-width: 480px) {
+    .game-container { padding: 10px; }
+    .stats-panel { padding: 15px; }
+}
