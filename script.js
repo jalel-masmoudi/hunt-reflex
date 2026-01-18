@@ -1,16 +1,15 @@
-// Forest Hunter Game - Pure JavaScript
-// Same config as original, just hunting theme
 
-// === CONFIG (No Hardcodes!) ===
+
+// === CONFIG ===
 const difficultySettings = {
     easy: { time: 30, duration: 2.5, spawnRate: 1500 },
     medium: { time: 20, duration: 1.8, spawnRate: 1200 },
     hard: { time: 10, duration: 1.2, spawnRate: 800 }
 };
 
-const animals = ['🦌', '🐇', '🦊', '🦅']; // Rotating hunting targets
+const animals = ['🦌', '🐇', '🦊', '🦅']; 
 
-// === GAME STATE (Single Source of Truth) ===
+// === GAME STATE  ===
 const gameState = {
     isRunning: false,
     score: 0,
@@ -182,7 +181,7 @@ function updateDisplay() {
     elements.difficulty.textContent = gameState.difficulty.charAt(0).toUpperCase() + gameState.difficulty.slice(1);
 }
 
-// Add shake animation to CSS (already included in style.css)
+// Add shake animation to CSS 
 const style = document.createElement('style');
 style.textContent = `
     @keyframes shake {
